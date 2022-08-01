@@ -21,7 +21,7 @@ Unzip the hmmlearn.zip, and use its path to replace the variable **path_to_raw_h
 2. The original data preprocessing scripts are in the preprocessing folder. The studyforrest data needs to be downloaded to run the script.
 3. The training scripts for HMM models are in the training folder. We recommend you to run them on servers with multiple threads.  For the help of specifying different argument, please run
 ```
-python run.py -h 
+python training/run.py -h 
 ```
 
 

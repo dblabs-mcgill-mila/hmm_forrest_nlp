@@ -10,14 +10,21 @@ import seaborn as sns
 from datetime import date
 import time
 import os
+import sys
 import itertools
 import argparse
 from multiprocessing import Pool
 from sklearn.decomposition import PCA
 from scipy import ndimage
-
 import warnings
-from ../utils import *
+
+# directory reach
+current = os.path.dirname(os.path.realpath(__file__))
+parent = os.path.dirname(current)
+# setting path
+sys.path.append(parent)
+from utils import *
+
 warnings.simplefilter(action='ignore', category=FutureWarning)
 print('Start')
 yeo7 = ['Vis', 'SomMot', 'DorsAttn',
@@ -28,7 +35,7 @@ parser.add_argument("--subject", "-s", type=str, default="01",help="select the s
 parser.add_argument("--n_components", "-t", type=int, default=200, help="number of semantic contexts")
 parser.add_argument("--n_models", "-n", type=int, default=100, help="number of HMM models to train")
 parser.add_argument("--n_states", type=int, default=4, help="number of brian states")
-parser.add_argument("--text_type", type=str, default="sub",help="choose from sub(subtitles) or des(descriptions))
+parser.add_argument("--text_type", type=str, default="sub",help="choose from sub(subtitles) or des(descriptions)")
 parser.add_argument("--text_method", type=str, default="nmf", help="choose from nmf or pca (vanila LSA)")
 parser.add_argument("--region", default="DMN",help="hoose from 'Vis', 'SomMot', 'DorsAttn','SalVentAttn', 'Limbic', 'Cont','Default'")
 parser.add_argument("--limbictype", type=str, default="hippo", help="The appended limbic regions: choose from hippo or amyg")
@@ -36,10 +43,10 @@ parser.add_argument("--suffix", type=str, default=None)
 parser.add_argument("--path", type=str, default=None, help='the path which stored all the input files')
 
 n_pcs_dict = {'hippo': 6, 'amyg': 6}
-tmp_dir = args.path
 skip = 0
 subject_compare = '01' # The traget subject for hungarian algorithm
 args = parser.parse_args()
+tmp_dir = args.path
 suffix = args.suffix
 limbic_type = args.limbictype
 if limbic_type == "hippo":
