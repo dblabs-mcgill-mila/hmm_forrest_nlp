@@ -11,9 +11,9 @@ pip install -r requirements.txt
 Please download the intermediate data used for data analysis in the google drive: 
 https://drive.google.com/drive/folders/1Fq0XzNU0qN6bIFVhH3pBwXqPKOWznx6t?usp=sharing
 
-Unzip the tmp_data_open.zip, and use its path to replace the **tmp_dir** variable in the scripts.
+Unzip the tmp_data_open.zip, and use its path to replace the variable **tmp_dir** in the scripts.
 
-Unzip the hmmlearn.zip, and use its path to **path_to_raw_hmm_models** in the scripts.
+Unzip the hmmlearn.zip, and use its path to replace the variable **path_to_raw_hmm_models** in the scripts.
 
 ## 3. Code structure.
 
