@@ -24,4 +24,6 @@ Unzip the hmmlearn.zip, and use its path to replace the variable **path_to_raw_h
 python training/run.py -h 
 ```
 
+## 4. Demo
 
+Once downloaded the intermediate results and unziped them in the according path. You can run the "single_subject_demonstration.ipynb" for replication of Fig 1-3, and run the "group_analysis.ipynb" for replication of figs 4-7, and "supplementary_tests.ipynb" for supplementary figues. 
