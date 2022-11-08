@@ -19,6 +19,8 @@ import argparse
 from scipy import ndimage
 from scipy.stats import zscore
 from sklearn.decomposition import PCA
+tmp_dir = "/Users/enningyang/Documents/forrest_project/tmp_data" # the folder to store intermediate results
+
 
 def fmri_real_time_map(x):
     if x > 21 * 60 + 32.12:
@@ -104,7 +106,7 @@ def get_xticks(k):
 def get_args(l, pls=False, cca=0, inp=None, return_idx=0):
     yeo7 = ['Vis', 'SomMot', 'DorsAttn',
         'SalVentAttn', 'Limbic', 'Cont', 'Default']
-    annotations = np.load('/Users/enningyang/Documents/forrest_project/tmp_data/annotations.pickle', allow_pickle=True)
+    annotations = np.load(f'{tmp_dir}/annotations.pickle', allow_pickle=True)
     annotations_keys = list(annotations.keys())
     nac_type = re.findall("(nac|hippo|amyg|all)", l)[0]
     region = re.findall("(Vis|SomMot|DorsAttn|SalVentAttn|Limbic|Cont|Default|16)", l)[0]
@@ -122,20 +124,20 @@ def get_args(l, pls=False, cca=0, inp=None, return_idx=0):
         if not add_pcs:
             add_pcs = 3
         nac_timeseries_dict = pickle.load(
-            open("/Users/enningyang/Documents/forrest_project/tmp_data/hippo_timeseries_{}pcs_dict.pickle".format(add_pcs),
+            open("{}/hippo_timeseries_{}pcs_dict.pickle".format(tmp_dir, add_pcs),
                  "rb"))
     elif nac_type == "amyg":
         if not add_pcs:
             add_pcs = 3
         nac_timeseries_dict = pickle.load(
-            open("/Users/enningyang/Documents/forrest_project/tmp_data/amyg_timeseries_{}pcs_dict.pickle".format(add_pcs),
+            open("{}/amyg_timeseries_{}pcs_dict.pickle".format(tmp_dir, add_pcs),
                  "rb"))
     elif nac_type == "all":
         nac_timeseries_dict1 = pickle.load(
-            open("/Users/enningyang/Documents/forrest_project/tmp_data/hippo_timeseries_{}pcs_dict.pickle".format(3),
+            open("{}/hippo_timeseries_3pcs_dict.pickle".format(tmp_dir),
                  "rb"))
         nac_timeseries_dict2 = pickle.load(
-            open("/Users/enningyang/Documents/forrest_project/tmp_data/amyg_timeseries_{}pcs_dict.pickle".format(3), "rb"))
+            open("{}/amyg_timeseries_3pcs_dict.pickle".format(tmp_dir), "rb"))
         nac_timeseries_dict = {}
         for k, v in nac_timeseries_dict1.items():
             nac_timeseries_dict[k] = np.hstack(
@@ -144,7 +146,7 @@ def get_args(l, pls=False, cca=0, inp=None, return_idx=0):
 
     if in_type == "yeo":
         data_dict = pickle.load(
-            open("/Users/enningyang/Documents/forrest_project/tmp_data/schaefer_timeseries_dict_z_scored.pickle", "rb"))
+            open(f"{tmp_dir}/schaefer_timeseries_dict_z_scored.pickle", "rb"))
         schaefer = nilearn.datasets.fetch_atlas_schaefer_2018(100)
         labels_strings = []
         for label in schaefer.labels:
@@ -161,8 +163,8 @@ def get_args(l, pls=False, cca=0, inp=None, return_idx=0):
 
     text = pickle.load(
         open(
-            "/Users/enningyang/Documents/forrest_project/tmp_data/text_embeddings_n{}_{}_{}.pickle".format(
-                n_components, text_type, text_method), "rb"))
+            "{}/text_embeddings_n{}_{}_{}.pickle".format(
+                tmp_dir, n_components, text_type, text_method), "rb"))
     text_keys = list(text.keys())
     text_components = text[text_keys[0]].shape[1]
 
@@ -194,6 +196,7 @@ def get_args(l, pls=False, cca=0, inp=None, return_idx=0):
 
     file_path = os.path.join(HMMs_subject_path,
                              'HMM_r{}'.format(model_count) + '.pickle')
+    print(file_path)
     HMM = pickle.load(open(file_path, 'rb'))
     if return_idx:
         idx = state_idx[model_count]
