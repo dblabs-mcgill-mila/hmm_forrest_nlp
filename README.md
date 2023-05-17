@@ -7,7 +7,7 @@ This github repo is for the paper **Bringing language to dynamic brain states: t
 pip install -r requirements.txt
 ```
 
-## 2. Preprease the data.
+## 2. Prepare the data.
 Please download the intermediate data used for data analysis in the google drive: 
 https://drive.google.com/drive/folders/1Fq0XzNU0qN6bIFVhH3pBwXqPKOWznx6t?usp=sharing
 
